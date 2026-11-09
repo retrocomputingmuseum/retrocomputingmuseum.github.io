@@ -1,0 +1,212 @@
+/* Componentes de las páginas generadas (timeline y fichas).
+   Usa las variables de style.css, así que sigue el modo claro/oscuro del sistema. */
+
+:root {
+  --c-ordenador: #1a73e8;
+  --c-consola: #e91e63;
+  --c-arcade: #9c27b0;
+}
+
+/* ---------- Filtros (comunes) ---------- */
+.filter-container {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 15px;
+  max-width: 650px;
+  margin: 0 auto 30px auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+.filter-container.wide { max-width: 900px; }
+
+.filter-row { margin-bottom: 10px; }
+.filter-row:last-child { margin-bottom: 0; }
+
+.filter-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.filter-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 16px;
+  cursor: pointer;
+  margin: 3px;
+  transition: all 0.2s ease;
+}
+.filter-btn:hover { background: var(--img-bg); }
+.filter-btn.active {
+  background: var(--page-accent, var(--c-ordenador));
+  border-color: var(--page-accent, var(--c-ordenador));
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Timeline ---------- */
+.timeline-wrap { --page-accent: var(--c-ordenador); }
+
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background: var(--page-accent);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -2px;
+}
+
+.year-block {
+  position: relative;
+  margin-bottom: 40px;
+  transition: all 0.3s ease;
+}
+.year-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  background: var(--page-accent);
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Dos columnas a ambos lados de la línea central (90px reservados para la etiqueta del año) */
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr 90px 1fr;
+}
+.tl-left  { grid-column: 1; grid-row: 1; }  /* consolas y arcades */
+.tl-right { grid-column: 3; grid-row: 1; }  /* ordenadores */
+
+.timeline-card {
+  background: var(--panel);
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-left: 5px solid #607d8b;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+.timeline-card:last-child { margin-bottom: 0; }
+.timeline-card:hover { background: var(--img-bg); }
+.tl-right .timeline-card:hover { transform: translateX(3px); }
+.tl-left  .timeline-card:hover { transform: translateX(-3px); }
+
+.timeline-card.ordenador { border-left-color: var(--c-ordenador); }
+.timeline-card.consola   { border-left-color: var(--c-consola); }
+.timeline-card.arcade    { border-left-color: var(--c-arcade); }
+
+/* Lado izquierdo: borde de color junto a la línea central y texto alineado a la derecha */
+.tl-left .timeline-card { border-left: 0; border-right: 5px solid #607d8b; text-align: right; }
+.tl-left .timeline-card.consola { border-right-color: var(--c-consola); }
+.tl-left .timeline-card.arcade  { border-right-color: var(--c-arcade); }
+
+.badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  color: #fff;
+}
+.badge-ordenador { background: var(--c-ordenador); }
+.badge-consola   { background: var(--c-consola); }
+.badge-arcade    { background: var(--c-arcade); }
+
+.tl-title { font-size: 1.05rem; font-weight: 600; color: var(--text); margin: 0 0 2px 0; }
+.tl-title + .tl-title { margin-top: 4px; }
+.tl-title a { color: inherit; text-decoration: none; }
+.tl-title a:hover { text-decoration: underline; }
+
+/* ---------- Fichas por fabricante ---------- */
+.fichas { --page-accent: var(--c-ordenador); }
+
+.manufacturer-block,
+.platform-block {
+  max-width: 900px;
+  margin: 0 auto 35px auto;
+  scroll-margin-top: 80px; /* deja sitio a la cabecera fija */
+}
+.manufacturer-label,
+.platform-label {
+  display: inline-block;
+  background: var(--page-accent);
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.fichas-grid { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.ficha {
+  display: block;
+  width: 160px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+.ficha:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+.ficha img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  background: var(--img-bg);
+  border-bottom: 1px solid var(--border);
+}
+.ficha-info { padding: 8px 10px; }
+.ficha-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin: 0 0 2px 0; line-height: 1.2; }
+.ficha-year { font-size: 0.75rem; color: var(--muted); }
+
+/* Pantallas estrechas: una sola columna con la línea a la izquierda
+   (primero ordenadores y después consolas/arcades) */
+@media (max-width: 700px) {
+  .timeline::after { left: 30px; margin-left: 0; }
+  .year-label { left: 7px; transform: none; }
+  .cards-container { grid-template-columns: 1fr; padding-left: 70px; }
+  .tl-right { grid-column: 1; grid-row: 1; margin-bottom: 10px; }
+  .tl-left  { grid-column: 1; grid-row: 2; }
+  .tl-left .timeline-card { border-right: 0; border-left: 5px solid #607d8b; text-align: left; }
+  .tl-left .timeline-card.consola { border-left-color: var(--c-consola); }
+  .tl-left .timeline-card.arcade  { border-left-color: var(--c-arcade); }
+  .tl-left .timeline-card:hover { transform: translateX(3px); }
+}
